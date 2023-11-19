@@ -4,39 +4,14 @@
   }
 }
 
-@media only screen and (max-width: 7680px) {
-  .page {
-    width: 80%;
-  }
-
+@media screen {
   .summary{
     width: 24%;
-    min-height: 10rem;
-  }
-}
-
-@media only screen and (max-width: 1920px) {
-  .home {
-    .summary{
-      width: 24%;
-      min-height: 10rem;
-    }
-  }
-}
-
-@media only screen and (max-width: 1600px) {
-  .home {
-    .summary{
-      width: 32%;
-      min-height: 10rem;
-    }
   }
 }
 
 @media only screen and (max-width: 1440px) {
-  // .page {
-  //   width: 56%;
-  // }
+
   #toc-auto {
     left: 78%;
     width: 22%;
@@ -45,38 +20,11 @@
   .home {
     .summary{
       width: 32%;
-      min-height: 10rem;
     }
   }
 }
 
-@media only screen and (max-width: 1200px) {
-  .page {
-    width: 85%;
-  }
-
-  .home {
-    .summary{
-      width: 48%;
-      // min-height: 10rem;
-    }
-  }
-
-  #toc-auto {
-    left: 76%;    
-    width: 24%;    
-  }
-
-  #header-desktop .header-wrapper {
-    padding-right: 1rem;
-  }
-
-  .search-dropdown.desktop {
-    right: 1rem;
-  }
-}
-
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 960px) {
   #toc-auto {
     display: none;
   }
@@ -94,7 +42,6 @@
   .home {
     .summary{
       width: 48%;
-      // min-height: 0;
     }
   }
 
@@ -103,7 +50,7 @@
   }
 }
 
-@media only screen and (max-width: 680px) {
+@media only screen and (max-width: 480px) {
   #header-desktop {
     display: none;
   }
@@ -138,7 +85,6 @@
   .home {
     .summary{
       width: 100%;
-      // min-height: 0;
     }
   }
 

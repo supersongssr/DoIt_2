@@ -1,7 +1,23 @@
+.page-home{
+  position: relative;
+  max-width: 1920px;
+  width: 95%;
+  margin: 0 auto;
+  [header-desktop] & {
+    padding-top: $header-height;
+  }
+
+  [header-desktop=normal] & {
+    padding-top: 0;
+  }
+
+  @include blur;
+}
+
 .page {
   position: relative;
   max-width: 800px;
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
   [header-desktop] & {
     padding-top: $header-height;
