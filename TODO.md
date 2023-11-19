@@ -52,15 +52,28 @@ https://www.fusejs.io/examples.html#search-string-array
     - [x] find it :
         - chore: add 0.2.13 changelog     Nov 6, 2021   ## [0.2.13] - 2021-11-06
 - [x] check the different with doit getit 
-- [] try to see how meili search work
-- [] built website with doit v0.4
-    - [] install nginx on macos ? ?
-        - [] raspberry is better ? Yes , it's better . 
-        - [] but nginx ?? on macos, better to 
-        - [] or install caddy2 ?
-            - [] yeap ,instal caddy2 on macos ,is better! 
-    - [] move git folder to raspberry pi . 
-    - [] move hugo folder to raspberry pi folder 
+- [x] try to see how meili search work
+- [x] built website with doit v0.4
+    - [x] install nginx on macos ? ?
+        - [x] raspberry is better ? Yes , it's better . 
+        - [x] but nginx ?? on macos, better to 
+        - [x] or install caddy2 ?
+            - [x] yeap ,instal caddy2 on macos ,is better! 
+    - [x] move git folder to raspberry pi . 
+    - [x] move hugo folder to raspberry pi folder 
+
+- [x] homepage auto adapts to screens 
+    - [x] copy from getit old version .
+    - [x] try use hugo , caddy2 
+    - [] change the first page url 
+    - [] try edit the hoem page , and adjust it 
+
+- [] edit home page , adjust 
+    - [] card summary 
+    - [] img size
+    - [] screen size 
+
+- [] edit about page to a new 
 
 - [] ngx lua can get the post query 
     - [] let login page use : post query , but : ? a.b.c j.b.c???

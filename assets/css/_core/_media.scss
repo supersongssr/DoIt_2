@@ -1,16 +1,65 @@
-@media only screen and (max-width: 1440px) {
-  .page {
-    width: 56%;
+@media screen and (prefers-reduced-motion: reduce) { //动画减弱
+  html {
+    scroll-behavior: auto;
   }
+}
+
+@media only screen and (max-width: 7680px) {
+  .page {
+    width: 80%;
+  }
+
+  .summary{
+    width: 24%;
+    min-height: 10rem;
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+  .home {
+    .summary{
+      width: 24%;
+      min-height: 10rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 1600px) {
+  .home {
+    .summary{
+      width: 32%;
+      min-height: 10rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  // .page {
+  //   width: 56%;
+  // }
   #toc-auto {
     left: 78%;
     width: 22%;
+  }
+
+  .home {
+    .summary{
+      width: 32%;
+      min-height: 10rem;
+    }
   }
 }
 
 @media only screen and (max-width: 1200px) {
   .page {
-    width: 52%;
+    width: 85%;
+  }
+
+  .home {
+    .summary{
+      width: 48%;
+      // min-height: 10rem;
+    }
   }
 
   #toc-auto {
@@ -40,6 +89,13 @@
     width: 80% !important;
     margin-left: auto !important;
     margin-right: auto !important;
+  }
+
+  .home {
+    .summary{
+      width: 48%;
+      // min-height: 0;
+    }
   }
 
   #header-desktop .header-wrapper {
@@ -76,6 +132,13 @@
       .card-item {
         width: 100%;
       }
+    }
+  }
+
+  .home {
+    .summary{
+      width: 100%;
+      // min-height: 0;
     }
   }
 
