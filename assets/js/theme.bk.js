@@ -312,22 +312,33 @@ function initSearch () {
         } else if (searchConfig.type === 'fuse') {
           const search = () => {
             const results = {}
-            gaga = window._index.search(query).forEach(({ item, refIndex, matches}) => {
-              let title = item 
-              matches.forEach(({ indices }) => {
-                let offset = 0
-                for (let i = 0; i < indices.length; i++) {
-                  const substr = title.substring(indices[i][0] + offset, indices[i][1] + 1 + offset)
-                  const tag = `<${highlightTag}>` + substr + `</${highlightTag}>`
-                  title = title.substring(0, indices[i][0] + offset) + tag + title.substring(indices[i][1] + 1 + offset, title.length)
-                  offset += highlightTag.length * 2 + 5
+            window._index.search(query).forEach(({ item, refIndex, matches }) => {
+              let title = item.title
+              let content = item.content
+              matches.forEach(({ indices, value, key }) => {
+                if (key === 'content') {
+                  let offset = 0
+                  for (let i = 0; i < indices.length; i++) {
+                    const substr = content.substring(indices[i][0] + offset, indices[i][1] + 1 + offset)
+                    const tag = `<${highlightTag}>` + substr + `</${highlightTag}>`
+                    content = content.substring(0, indices[i][0] + offset) + tag + content.substring(indices[i][1] + 1 + offset, content.length)
+                    offset += highlightTag.length * 2 + 5
+                  }
+                } else if (key === 'title') {
+                  let offset = 0
+                  for (let i = 0; i < indices.length; i++) {
+                    const substr = title.substring(indices[i][0] + offset, indices[i][1] + 1 + offset)
+                    const tag = `<${highlightTag}>` + substr + `</${highlightTag}>`
+                    title = title.substring(0, indices[i][0] + offset) + tag + title.substring(indices[i][1] + 1 + offset, content.length)
+                    offset += highlightTag.length * 2 + 5
+                  }
                 }
               })
-              results[item] = {
-                uri: '/'+item,
+              results[item.uri] = {
+                uri: item.uri,
                 title,
-                date: '',
-                context: ''
+                date: item.date,
+                context: content
               }
             })
             return Object.values(results).slice(0, maxResultLength)
@@ -348,11 +359,11 @@ function initSearch () {
                   ignoreFieldNorm,
                   includeScore: false,
                   shouldSort: true,
-                  includeMatches: true
-                  // keys: [
-                  //   'content',
-                  //   'title'
-                  // ]
+                  includeMatches: true,
+                  keys: [
+                    'content',
+                    'title'
+                  ]
                 }
                 window._index = new Fuse(data, options)
                 finish(search())

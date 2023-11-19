@@ -65,13 +65,16 @@ https://www.fusejs.io/examples.html#search-string-array
 - [x] homepage auto adapts to screens 
     - [x] copy from getit old version .
     - [x] try use hugo , caddy2 
-    - [] change the first page url 
-    - [] try edit the hoem page , and adjust it 
+    - [x] change the first page url 
+    - [x] try edit the hoem page , and adjust it 
 
-- [] edit home page , adjust 
-    - [] card summary 
-    - [] img size
-    - [] screen size 
+- [x] edit home page , adjust 
+    - [x] card summary 
+    - [x] img size
+    - [x] screen size 
+
+- [x] try edit fuse , and index.json creat 
+    - [] try use list 
 
 - [] edit about page to a new 
 
