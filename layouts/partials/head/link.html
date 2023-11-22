@@ -31,6 +31,22 @@
     <link rel="feed" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ $.Site.Title }}">
 {{- end -}}
 
+{{- /* user.min.css */ -}}
+{{- if eq .Type "user" -}}
+{{- $style := dict "Source" "css/user.scss" "Fingerprint" $fingerprint -}}
+{{- $options := dict "targetPath" "css/user.min.css" "enableSourceMap" true -}}
+{{- $style = dict "Context" . "ToCSS" $options | merge $style -}}
+{{- partial "plugin/style.html" $style -}}
+{{- end -}}
+
+{{- /* login.min.css */ -}}
+{{- if eq .Type "login" -}}
+{{- $style := dict "Source" "css/login.scss" "Fingerprint" $fingerprint -}}
+{{- $options := dict "targetPath" "css/login.min.css" "enableSourceMap" true -}}
+{{- $style = dict "Context" . "ToCSS" $options | merge $style -}}
+{{- partial "plugin/style.html" $style -}}
+{{- end -}}
+
 {{- /* normalize.css */ -}}
 {{- $source := $cdn.normalizeCSS | default "lib/normalize/normalize.min.css" -}}
 {{- $style := dict "Source" $source "Fingerprint" $fingerprint -}}

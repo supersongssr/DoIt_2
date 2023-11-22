@@ -9,6 +9,11 @@ $global-font-size: 16px;
 $global-font-weight: 400;
 $global-line-height: 1.5rem;
 
+// Color of the login card background
+$global-background-login-card-color: #131111 !default;
+$global-background-login-card-color-dark: #333 !default;
+$global-background-logincard-color-black: #131111 !default;
+
 // Color of the background
 $global-background-color: #fff !default;
 $global-background-color-dark: #292a2d !default;
@@ -28,6 +33,16 @@ $global-font-color-black: #d9d9d9 !default;
 $global-font-secondary-color: #4d4d4d !default;
 $global-font-secondary-color-dark: #b5b5b5 !default;
 $global-font-secondary-color-black: #a9a9b3 !default;
+
+// Color of the botton 
+$global-botton-color: #3f3f3f !default;
+$global-botton-color-dark: #707070 !default;
+$global-botton-color-black: #242424 !default;
+
+// Color of the hover botton 
+$global-botton-hover-color: #000000 !default;
+$global-botton-hover-color-dark: #909090 !default;
+$global-botton-hover-color-black: #333333 !default;
 
 // Color of the link
 $global-link-color: #161209 !default;

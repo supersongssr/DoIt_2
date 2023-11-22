@@ -55,16 +55,16 @@ other = "选择语言"
 other = "切换主题"
 
 [Light]
-other = "浅色"
+other = "云白"
 
 [Dark]
-other = "深色"
+other = "暗夜"
 
 [Black]
-other = "黑色"
+other = "洞黑"
 
 [Auto]
-other = "跟随系统"
+other = "自动"
 # === partials/header.html ===
 
 # === partials/footer.html ===

@@ -1,0 +1,20 @@
+{{- define "title" }}
+{{- T "pageNotFound" | printf "404 %v" }} - {{ .Site.Title -}}
+{{- end -}}
+
+{{- define "content" -}}
+<div class="page" id="content-404">
+    <h1 id="error-emoji"></h1>
+    <p class="error-text">
+        <a href="javascript:void(0);" title="{{ T `back` }}" onclick="window.history.back();">新消息<i
+                class="far fa-hand-point-left fa-fw"></i></a>
+    </p>
+</div>
+<script type="text/javascript">
+    (function () {
+        var info = window.location.hash;
+        window.alert(info);
+        document.getElementById('error-emoji').appendChild(document.createTextNode(info));
+    })();
+</script>
+{{- end -}}

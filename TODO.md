@@ -74,9 +74,26 @@ https://www.fusejs.io/examples.html#search-string-array
     - [x] screen size 
 
 - [x] try edit fuse , and index.json creat 
-    - [] try use list 
+    - [x] try use list 
 
-- [] edit about page to a new 
+- [x] hugo filename ? how ? chinese words
+
+- [x] use less control the login page 
+
+- [x] edit about page to a new 
+    - [x] how about page creat ?
+        - [x] If need content , add the content 
+        - [x] need the content 
+- [x] add pages : 
+    - [x] user/  need md 
+        - [x] use type ? cools , page ?  Or anything else ?
+        - [x] add html 
+        - [x] add css 
+    - [x] login/ no md 
+        - [x] add html 
+        - [x] add scss 
+
+- [] add a info page 
 
 - [] ngx lua can get the post query 
     - [] let login page use : post query , but : ? a.b.c j.b.c???

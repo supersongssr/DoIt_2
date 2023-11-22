@@ -324,7 +324,7 @@ function initSearch () {
                 }
               })
               results[item] = {
-                uri: '/'+item,
+                uri: '/posts/'+encodeURI(item),
                 title,
                 date: '',
                 context: ''
