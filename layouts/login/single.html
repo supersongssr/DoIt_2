@@ -11,7 +11,7 @@
             <div class="input-field"><i class="fas fa-lock" aria-hidden="true"></i>
                 <input id="pwd" type="password" placeholder="密码">
             </div>
-            <input onclick="login()" type="submit" value="Login" class="btn solid" >
+            <input onclick="login()"   value="Login" class="btn solid" >
         </form>
         <form class="sign-up-form">
             <h2 class="title">注册</h2>
@@ -24,7 +24,7 @@
             <div class="input-field"><i class="fas fa-lock" aria-hidden="true"></i>
                 <input type="password" placeholder="密码">
             </div>
-            <input id="regpwd" onclick="reg()" type="submit" class="btn" value="注册">
+            <input id="regpwd" onclick="reg()"  class="btn" value="注册">
         </form>
     </div>
 </div>
@@ -58,10 +58,10 @@
     }); 
 
     // alert
-    var info = window.location.hash;
+    {{/*  var info = window.location.hash;
     if (info != '') {
         window.alert(info);
-    }
+    }  */}}
 
     // ajax
     var xhr = new XMLHttpRequest();
@@ -71,14 +71,16 @@
     function login(){
         var email = document.querySelector("#email").value;
         var pwd = document.querySelector("#pwd").value;
-        xhr.open('POST','http://game.cc/');
+        xhr.open('POST','http://g.jump.cc/user/');
         xhr.send('email='+email+'&pwd='+pwd);
         xhr.onreadystatechange = function (){
             if (xhr.readyState == 4 && xhr.status == 200 ){
-                window.alert('login success');
-            }
-            else {
-                window.alert(xhr.statusText)
+                console.log(xhr.responseText);
+                r = xhr.responseText;
+                r = r.split(',')
+                console.log(r)
+                console.log(r[0]);
+                console.log(r[1]);
             }
         }
         
@@ -89,14 +91,11 @@
         var reguser = document.querySelector("#reguser").value;
         var regemail = document.querySelector("#regemail").vaule;
         var regpwd = document.querySelector("#regpwd").value;
-        xhr.open('POST','http://game.cc/');
+        xhr.open('GET','http://g.jump.cc/user/');
         xhr.send('reguser='+reguser+'&regemail='+regemail+'regpwd='+regpwd);
         xhr.onreadystatechange = function (){
             if (xhr.readyState == 4 && xhr.status == 200 ){
                 window.alert('reg success');
-            }
-            else {
-                window.alert(xhr.statusText)
             }
         }
     };

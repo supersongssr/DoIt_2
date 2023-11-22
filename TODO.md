@@ -93,7 +93,13 @@ https://www.fusejs.io/examples.html#search-string-array
         - [x] add html 
         - [x] add scss 
 
-- [] add a info page 
+- [x] add a info page 
+
+- [] BUG: the first click search bug ,the print not on the search arear.
+
+- [] nginx lua redis , 
+    - [] how import redis ?
+    - [] use which redis component
 
 - [] ngx lua can get the post query 
     - [] let login page use : post query , but : ? a.b.c j.b.c???
