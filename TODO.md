@@ -102,37 +102,91 @@ https://www.fusejs.io/examples.html#search-string-array
     - [x] use which redis component
         - [x] lua resty redis 
 
+- [x] 测试 ngx.say后面的代码是否还会执行
+    - [x] 需要一个 ngx.exit
+    - [x] 测试一下就知道了. 没结束.果然没结束. 多个say可以逐个输出. 需要加 ngx.exit
 
-- [] db:  with site pre .   site = 'g_'
-    - user_info  hash  many ; user info hash 
-        - user name 
-        - user email 
-        - user password 
-        - user coin money  1$=100coin 
-        - user ip 
-        - user ipv6 
-        - user token : md5(username_password)
-        - invite by 
-        - divices count 
-        - url redirect count 
-        - invite users count 
-        - invite code ; number ; user id 
-    - user_info_index  set 
-    - url_info hash  one 
-    - invite_code  hash  one  
-    - invite_list set many  ; user invite user list 
-    - total user count : string number , incresment
+- [x] nginx重定向 ngx.redirect 后面的代码会执行吗
+    - 不会执行. 
+
+- [x] ngx.cookie_time(time) return a cookie time 
+
+- [x] token add a unix time ? no!
 
 
+- [x] try get user info 
+    - [x] cookie ,only token 
 
-- [] the jump url ,try use the num id , not the md5!
-    - [] if use num, will be easy to find .
+- [] js web storage invite code .  cool way 
 
-- [] try understand the hugo themes reasons 
+- [x] lua 代码规范
+    - 文件: 小写 下划线
+    - 空行
+        - 函数之间加
+        - 函数内,逻辑紧密的语句间不加 
+    - 类, 函数: 大驼峰
+    - 变量 : 小驼峰
+    - 常量 全大写 + _
+    - 临时变量 _ _xxx i k v t 
 
-- [] add the home page cards spacing . make it wider .
+- [x] cookie 
+    - token only 
+    - inviteby 
 
-- [] learn the theme 
+- [x] lua shared dict 
+    - token token_
+
+- [x] 约定的 api 规则
+    - /user
+        - /user/login  post 
+            - email=xx&pwd=xx
+            - ok,userid
+                - cookie set session/token
+        - /user/reg  post 
+            - name=xx&email=xx&pwd=xx&invite_by=xx
+            - ok,userid
+                - cookie set token /session
+        - /user/info   post 
+            - session=xx
+            - ok,userinfo
+    - /url
+        - /url?id=xxx  get cookie
+    - /admin
+        - /urls  post token=xxx&urls={}   urls:{} obj
+
+
+- [x] lua files :
+    - user.lua
+    - admin.lua
+    - url.lua
+
+- [x] db:  with site pre .   site prefix = 'g_'
+    - pre_user_email  hash  many ; user info hash 
+        - id
+        - name 
+        - email 
+        - pwd
+        - coins money  1$=100coin 
+        - urlclicks
+        - ip 
+        - ipv6 
+        - divices
+        - inviteby 
+        - invites 
+    - pre_users_index   set 
+    - pre_urls   hash  one 
+    - pre_invite_codes_index   hash  one  
+    - pre_invites_list_email  set many  ; user invite user list 
+    - pre_all_users_count : string number , incresment
+
+- [x] ngx shared dict :
+    - pre_reg_ip_ip
+
+- [x] try understand the hugo themes reasons 
+
+- [x] add the home page cards spacing . make it wider .
+
+- [x] learn the theme 
     - first : alyouts : index.html ,  add a  summary-card , 
     - assets css _page _home.scss , add a  summary-card , css 
     - then the _media.scss 
