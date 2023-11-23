@@ -95,18 +95,34 @@ https://www.fusejs.io/examples.html#search-string-array
 
 - [x] add a info page 
 
-- [] BUG: the first click search bug ,the print not on the search arear.
+- [x] BUG: the first click search bug ,the print not on the search arear.
 
-- [] nginx lua redis , 
-    - [] how import redis ?
-    - [] use which redis component
+- [x] nginx lua redis , 
+    - [x] how import redis ?
+    - [x] use which redis component
+        - [x] lua resty redis 
 
-- [] ngx lua can get the post query 
-    - [] let login page use : post query , but : ? a.b.c j.b.c???
-    - [] ohno only get method! 
 
-- [] the lua file ,try use a file 
-    - [] mybye try use load file? 
+- [] db:  with site pre .   site = 'g_'
+    - user_info  hash  many ; user info hash 
+        - user name 
+        - user email 
+        - user password 
+        - user coin money  1$=100coin 
+        - user ip 
+        - user ipv6 
+        - user token : md5(username_password)
+        - invite by 
+        - divices count 
+        - url redirect count 
+        - invite users count 
+        - invite code ; number ; user id 
+    - user_info_index  set 
+    - url_info hash  one 
+    - invite_code  hash  one  
+    - invite_list set many  ; user invite user list 
+    - total user count : string number , incresment
+
 
 
 - [] the jump url ,try use the num id , not the md5!
@@ -165,11 +181,3 @@ https://www.fusejs.io/examples.html#search-string-array
 
 - [] 开源搜索引擎:  meilisearch  zincsearch redisearch
 
-- [] WP MD
-    - [] WP for invite, 9.9/y
-    - [] MD for seal, 9.9/forerer
-        - [] 未来, 使用redis注册,邀请
-            - [] 一个url链接跳转 1分钱. 注册送1元, 签到送1元, 邀请送5元? 是否可行?
-
-- [] 当前评论可以考虑用 algolia, 多个站点,多注册几个账号就好了.
-    - [] 多注册几个账号,就好了.
