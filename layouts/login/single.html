@@ -24,7 +24,7 @@
             <div class="input-field"><i class="fas fa-lock" aria-hidden="true"></i>
                 <input id="regpwd" type="password" placeholder="密码">
             </div>
-            <input id="regpwd" onclick="reg()"  class="btn" value="注册">
+            <input onclick="reg()"  class="btn" value="注册">
         </form>
     </div>
 </div>
@@ -63,10 +63,8 @@
     xhr.withCredentials = true;
 
     // invite 
-    var inviteParm = window.location.search;
-    if (invitebyParm) {
-        var inviteby = invitebyParm.slice(1); // del '?'
-        localStorage.setItem("inviteby",inviteby);
+    if (window.location.search) {
+        localStorage.setItem("inviteby",window.location.search.slice(1));
     }
 
     // login 
@@ -81,11 +79,11 @@
                 r = r.split(',');
                 if (r[0] == 'ok'){
                     window.alert(r[1]);
-                    window.location('/user');
+                    window.location.href = '/user';
                 }else if (r[0] == 'err'){
                     window.alert(r[1]);
                 }else{
-                    window.alert('未知错误,请联系管理员');
+                    window.alert(xhr.responseText);
                 }
             }
         }
@@ -93,9 +91,9 @@
 
     // reg
     function reg(){
-        var postStr = 'regname='+document.querySelector("#regname").value;
-        postStr += '&regemail='+document.querySelector("#regemail").vaule;
-        postStr += '&regpwd='+document.querySelector("#regpwd").value;
+        var postStr = 'name='+document.querySelector("#regname").value;
+        postStr += '&email='+document.querySelector("#regemail").value;
+        postStr += '&pwd='+document.querySelector("#regpwd").value;
         if (localStorage.getItem("inviteby")) {
             postStr += '&inviteby=' + localStorage.getItem("inviteby");
         }
@@ -107,11 +105,11 @@
                 r = r.split(',');
                 if (r[0] == 'ok'){
                     window.alert(r[1]);
-                    window.location('/user');
+                    window.location.href = '/user';
                 }else if (r[0] == 'err'){
                     window.alert(r[1]);
                 } else {
-                    window.alert('未知错误,请联系管理员');
+                    window.alert(xhr.responseText);
                 }
             }
         }

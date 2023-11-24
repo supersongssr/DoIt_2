@@ -40,4 +40,10 @@
             </div>
         {{- end -}}
     </div>
+<script>
+    // invite 
+    if (window.location.search) {
+        localStorage.setItem("inviteby",window.location.search.slice(1));
+    }
+</script>
 {{- end -}}

@@ -191,7 +191,7 @@ https://www.fusejs.io/examples.html#search-string-array
     - assets css _page _home.scss , add a  summary-card , css 
     - then the _media.scss 
 
-- [] js window.location.search  , if no ? , 
+- [x] js window.location.search  , if no ? , 
 ```html 
 <script>
     var inviteby = window.location.search;
@@ -202,12 +202,20 @@ https://www.fusejs.io/examples.html#search-string-array
 </script>
 ```
 
-- [] why I remake a getit theme ?
-    - [] Need make the steps , how I make it possible 
+- [x] the fucking redis:hget ?  userdata????
+    - [x] ngx.null   ??? waht f**k ,  nil !!!
+    - [x] nil : redis error 
+    - [x] null : redis : null !  so fuk
+
+- [x] why I remake a getit theme ?
+    - [x] Need make the steps , how I make it possible 
+
+- [] the invite code set on index page ? 
 
 - [] hugo theme doit theme , edit
 	- [] get github hugo getit 
 
+- [] value of redis can not be null !
 
 - [] make a copy to raspiberry pi , try use the live mode 
 

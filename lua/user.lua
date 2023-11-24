@@ -8,12 +8,15 @@ MEM = ngx.shared.limit  --lua shared dict
 PRE = 'g_'  -- all db save need prefix 
 SITE = 'http://'..'getit.mac.cc'
 
+
 -- get user info 
 function GetUserByDB(email) 
     local u = {}
-    local uKey = PRE..'user'..email
-    u['email'] = red:hget(uKey, 'email')
-    if not u['email'] then 
+    local uKey = PRE..'user_'..email
+    u['email'],err = red:hget(uKey, 'email')
+    if nil == u['email'] then 
+        return nil ,'erdis error'
+    elseif ngx.null == u['email'] then 
         return nil , 'user not exist '
     end 
     u['id'] = red:hget(uKey, 'id')
@@ -32,7 +35,10 @@ end
 
 -- user login
 function Login() 
-    local args = ngx.req.get_post_args
+    ngx.req.read_body()
+    local args,err = ngx.req.get_post_args()
+    if not args then Say('err,请求参数不存在'..err)
+    end 
     if args['email'] and args['pwd'] then  -- check info
     else Say("err,请输入邮箱和密码")
     end 
@@ -42,7 +48,7 @@ function Login()
         if user['pwd'] == args['pwd'] then 
             local user = {}
             local token = ngx.md5(user['name']..user['pwd'])
-            MEM.set(PRE..'token_'..token, user['email'])  -- shared dict 
+            MEM:set(PRE..'token_'..token, user['email'])  -- shared dict 
             local cookieExpires = ngx.time() + 86400000
             ngx.header['Set-Cookie'] = 'token='..token..';path=/;Max-Age=8640000'..';Expires='..ngx.cookie_time(cookieExpires)
             Say('ok,loginsuccess')
@@ -51,6 +57,7 @@ function Login()
         end 
     else 
         Say('err,用户不存在')
+    end 
 
     -- 记录不同的ip登录? 这个可以有么?还是说,只在那个jump那里去记录呢?
     -- 不同的地方登录多少次都没问题,但是跳转不行?
@@ -58,9 +65,13 @@ end
 
 -- invite and pay 
 function Invite() 
+    ngx.req.read_body()
     local args = ngx.req.get_posts_args 
+    if not args then 
+        return nil ,'args not exist'
+    end 
     local email ,err = red:sget(PRE..'invite_codes_index',args['inviteby'] )
-    if email then
+    if ngx.null ~= email and nil ~= email  then
         local user,err  = GetUserByDB(email) --get invietby user 
         if user then 
             local uKey = PRE..'user_'..email  -- add coins
@@ -89,7 +100,10 @@ end
 
 -- register user , and invite , and add the coin 
 function Register()
-    local args = ngx.req.get_post_args
+    ngx.req.read_body()
+    local args,err = ngx.req.get_post_args()
+    if not args then  Say('err,请求参数报错'..err)
+    end 
     if args['email'] and args['name'] and args['pwd'] then 
     else Say('err,请输入 账号 密码 邮箱')
     end 
@@ -99,16 +113,18 @@ function Register()
 
     local ip = ngx.var.remote_addr
     if MEM:get(PRE..'reg_ip_'..ip) then  -- ip limits 
-        say('err,该IP重复注册')
+        Say('err,该IP重复注册')
     end
     
     local user = GetUserByDB(args['email'])
-    if user['email'] then Say('err,该邮箱已被注册')
+    if user then Say('err,该邮箱已被注册')
     end 
 
     local uKey = PRE..'user_'..args['email']
     red:incr(PRE..'all_users_count')
-    local userID = red:get(PER..'all_users_count')
+    local userID = red:get(PRE..'all_users_count')
+    if userId == ngx.null then Say('err,无法获取用户id')
+    end 
     red:init_pipeline()  -- start reg 
     red:hset(uKey, 'id', userID)  -- pre_user_email hash 
     red:hset(uKey, 'name', args['name'])
@@ -122,8 +138,8 @@ function Register()
     end 
     ok, err = red:commit_pipeline()
     if ok then 
-        local token = ngx.md5(args['name']..rags['pwd'])
-        MEM.set(PRE..'token_'..token,args['email'])  -- shared dict 
+        local token = ngx.md5(args['name']..args['pwd'])
+        MEM:set(PRE..'token_'..token,args['email'])  -- shared dict 
         local cookieExpires = ngx.time() + 86400000
         ngx.header['Set-Cookie'] = 'token='..token..';path=/;Max-Age=8640000'..';Expires='..ngx.cookie_time(cookieExpires)
         ngx.print('ok,注册成功_')
@@ -132,10 +148,10 @@ function Register()
     end 
 
     ok, err = red:sadd(PRE..'users_index', args['email'])  -- pre_users_index
-    if not ok then ngx.print('_写入用户index失败_')
+    if not ok then ngx.print('_写入用户index失败_'..err)
     end 
     ok, err = red:hset(PRE..'invite_codes_index', userID, args['email']) --pre_invite_codes_index
-    if not ok then ngx.print('_写入邀请index失败_')
+    if not ok then ngx.print('_写入邀请index失败_'..err)
     end 
 
     MEM:set(PRE..'reg_ip_'..ip,1,604800)  --7days iplimit
@@ -155,7 +171,7 @@ function DBConn()
     if not ok then Say('err,faild connetct to db :', err)
     end 
 
-    ok, err = red:auth('REDIS_AUTH')
+    ok, err = red:auth(REDIS_AUTH)
     if not ok then Say('err,faild login to db :',err)
     end 
 
@@ -173,7 +189,7 @@ end
 -- get user info 
 function UserInfo()
     if ngx.var.cookie_token then 
-        local email = MEM:get(ngx.var.cookie_token)
+        local email = MEM:get(PRE..'token_'..ngx.var.cookie_token)
         if email then 
             local u = GetUserByDB(email) -- u:user
             if u then 
@@ -199,5 +215,3 @@ elseif ngx.var.uri == "/user/login" then Login() --login
 elseif ngx.var.uri == "/user/register" then Register() --register
 else Say("err,非法请求地址")
 end 
-
-

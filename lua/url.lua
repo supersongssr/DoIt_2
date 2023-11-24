@@ -12,7 +12,7 @@ LOGIN_URL = SITE..'/in'
 
 -- redirect url 
 function Redirect(url,status)
-    if status != 301 then status = 302
+    if status ~= 301 then status = 302
     end 
     if red then red:set_keepalive(10000, 10)  -- red
     end 
@@ -46,7 +46,7 @@ end
 -- get user info 
 function GetUserByDB(email) 
     local u = {}
-    local uKey = PRE..'user'..email
+    local uKey = PRE..'user_'..email
     u['email'] = red:hget(uKey, 'email')
     if not u['email'] then 
         return nil , 'user not exist '
@@ -132,7 +132,7 @@ end
 
 -- is new device ?
 local ip = ngx.var.remote_addr	  -- devices used ?
-if ip != user['ip'] and ip != user['ipv6'] then 
+if ip ~= user['ip'] and ip ~= user['ipv6'] then 
     if #ip > 15 then 
         red:hset(PRE..'user_'..email, 'ipv6', ip)
     else 
