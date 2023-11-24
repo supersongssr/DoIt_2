@@ -20,71 +20,27 @@
         </div>
         {{- end -}}
 
-        <h2>
-            {{- .Site.Title -}}
+        <h2 id="name">
+            Name
         </h2>
 
-        {{- with $profile.subtitle -}}
-        <div class="subtitle">
-            {{- . | safeHTML -}}
+        <div class="subtitle" id="email">
+            Email
         </div>
-        {{- end -}}
 
         {{- if $profile.social -}}
-        <div class="links">
-            {{- $socialMap := resources.Get "data/social.yml" | transform.Unmarshal -}}
-            {{- $socialArr := slice -}}
-            {{- range $key, $value := .Site.Params.social -}}
-            {{- $social := $key | lower | index $socialMap | default dict -}}
-            {{- if $value -}}
-            {{- if reflect.IsMap $value -}}
-            {{- with $value.weight -}}
-            {{- $social = dict "Weight" . | merge $social -}}
-            {{- end -}}
-            {{- with $value.prefix -}}
-            {{- $social = dict "Prefix" . | merge $social -}}
-            {{- end -}}
-            {{- with $value.template -}}
-            {{- $social = dict "Template" . | merge $social -}}
-            {{- end -}}
-            {{- with $value.id -}}
-            {{- $social = dict "Id" . | merge $social -}}
-            {{- end -}}
-            {{- with $value.url -}}
-            {{- $social = dict "Url" . | merge $social -}}
-            {{- end -}}
-            {{- with $value.title -}}
-            {{- $social = dict "Title" . | merge $social -}}
-            {{- end -}}
-            {{- with $value.newtab -}}
-            {{- $social = dict "Newtab" . | merge $social -}}
-            {{- end -}}
-            {{- with $value.icon -}}
-            {{- $social = dict "Icon" . | merge $social -}}
-            {{- end -}}
-            {{- else if ne $value true -}}
-            {{- $social = dict "Id" $value | merge $social -}}
-            {{- end -}}
-            {{- if $social.Icon.Simpleicons -}}
-            {{- $prefix := ($.Scratch.Get "cdn" | default dict).simpleIconsPrefix -}}
-            {{- $social = dict "Prefix" $prefix | dict "Icon" | merge $social -}}
-            {{- end -}}
-            {{- $socialArr = $socialArr | append $social -}}
-            {{- end -}}
-            {{- end -}}
-            {{- range sort $socialArr "Weight" -}}
-            {{- partial "plugin/social.html" . -}}
-            {{- end -}}
+        <div class="links" id="invitelink">
+            InviteLink
         </div>
         {{- end -}}
     </div>
     <div class="grid bottom">
         <div class="info">
-            <p><i class="fa-solid fa-building fa-fw"></i>&nbsp;公司:<span>FeelIt</span></p>
+            <p><i class="fa-solid fa-building fa-fw"></i>&nbsp;金币:<span id="coins">Coins</span></p>
             <hr>
-            <p><i class="fa-solid fa-briefcase fa-fw fa-fw"></i>&nbsp;职业:<span>自由职业者</span></p>
+            <p><i class="fa-solid fa-briefcase fa-fw fa-fw"></i>&nbsp;已下载:<span id="clicks">Clicks</span></p>
             <hr>
-            <p><i class="fa-solid fa-map-marker-alt fa-fw"></i>&nbsp;地点:<span>地球</span></p>
+            <p><i class="fa-solid fa-map-marker-alt fa-fw"></i>&nbsp;已邀请:<span id="invites">Invites</span></p>
             <hr>
         </div>
     </div>

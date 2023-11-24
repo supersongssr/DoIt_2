@@ -191,6 +191,16 @@ https://www.fusejs.io/examples.html#search-string-array
     - assets css _page _home.scss , add a  summary-card , css 
     - then the _media.scss 
 
+- [] js window.location.search  , if no ? , 
+```html 
+<script>
+    var inviteby = window.location.search;
+    if (inviteby ) {
+        console.log(inviteby)
+    }   
+    
+</script>
+```
 
 - [] why I remake a getit theme ?
     - [] Need make the steps , how I make it possible 

@@ -23,4 +23,34 @@
             </div>
         </div>
     </article>
+<script>
+    // ajax
+    var site = 'http://g.jump.cc';
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.open('POST',site+'/user/info');
+    xhr.send();
+    xhr.onreadystatechange = function (){
+        if (xhr.readyState == 4 && xhr.status == 200 ){
+            var r = xhr.responseText;
+            r = r.split(',');
+            if (r[0] == 'ok'){
+                document.querySelector("#invitelink").innerHTML=r[1];
+                document.querySelector("#name").innerHTML=r[2];
+                document.querySelector("#email").innerHTML=r[3];
+                document.querySelector("#coins").innerHTML=r[4];
+                document.querySelector("#urlclicks").innerHTML=r[5];
+                document.querySelector("#devices").innerHTML=r[6];
+                document.querySelector("#invites").innerHTML=r[7];
+            }else if (r[0] == 'err'){
+                window.alert(r[1]);
+                window.location('/user/login');
+            }else{
+                window.alert('未知错误,请联系管理员');
+                window.location('/user/login');
+            }
+        }
+    }
+</script>
 {{- end -}}

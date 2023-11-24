@@ -57,51 +57,65 @@
       container.classList.remove("sign-up-mode");
     }); 
 
-    // alert
-    {{/*  var info = window.location.hash;
-    if (info != '') {
-        window.alert(info);
-    }  */}}
-
     // ajax
+    var site = 'http://g.jump.cc';
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
 
+    // invite 
+    var inviteParm = window.location.search;
+    if (invitebyParm) {
+        var inviteby = invitebyParm.slice(1); // del '?'
+        localStorage.setItem("inviteby",inviteby);
+    }
+
     // login 
     function login(){
-        var email = document.querySelector("#email").value;
-        var pwd = document.querySelector("#pwd").value;
-        xhr.open('POST','http://g.jump.cc/user/');
-        xhr.send('email='+email+'&pwd='+pwd);
+        var postStr = 'email='+document.querySelector("#email").value;
+        postStr += '&pwd='+document.querySelector("#pwd").value;
+        xhr.open('POST',site+'/user/login');
+        xhr.send(postStr);
         xhr.onreadystatechange = function (){
             if (xhr.readyState == 4 && xhr.status == 200 ){
-                console.log(xhr.responseText);
-                r = xhr.responseText;
-                r = r.split(',')
-                console.log(r)
-                console.log(r[0]);
-                console.log(r[1]);
+                var r = xhr.responseText;
+                r = r.split(',');
+                if (r[0] == 'ok'){
+                    window.alert(r[1]);
+                    window.location('/user');
+                }else if (r[0] == 'err'){
+                    window.alert(r[1]);
+                }else{
+                    window.alert('未知错误,请联系管理员');
+                }
             }
         }
-        
     };
-    
+
     // reg
     function reg(){
-        var reguser = document.querySelector("#reguser").value;
-        var regemail = document.querySelector("#regemail").vaule;
-        var regpwd = document.querySelector("#regpwd").value;
-        xhr.open('GET','http://g.jump.cc/user/');
-        xhr.send('reguser='+reguser+'&regemail='+regemail+'regpwd='+regpwd);
+        var postStr = 'regname='+document.querySelector("#regname").value;
+        postStr += '&regemail='+document.querySelector("#regemail").vaule;
+        postStr += '&regpwd='+document.querySelector("#regpwd").value;
+        if (localStorage.getItem("inviteby")) {
+            postStr += '&inviteby=' + localStorage.getItem("inviteby");
+        }
+        xhr.open('POST',site+'/user/register');
+        xhr.send(postStr);
         xhr.onreadystatechange = function (){
             if (xhr.readyState == 4 && xhr.status == 200 ){
-                window.alert('reg success');
+                var r = xhr.responseText;
+                r = r.split(',');
+                if (r[0] == 'ok'){
+                    window.alert(r[1]);
+                    window.location('/user');
+                }else if (r[0] == 'err'){
+                    window.alert(r[1]);
+                } else {
+                    window.alert('未知错误,请联系管理员');
+                }
             }
         }
     };
-
-    // invite
-
 </script>
 
 {{- end -}}

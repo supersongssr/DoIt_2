@@ -76,7 +76,7 @@ function Invite()
             else 
                 ngx.print('_返利失败_')
                 return nil , 'coins add faild'
-            else 
+            end
         else 
             ngx.print('_邀请人不存在_')
             return nil , 'user not exist'
@@ -118,6 +118,8 @@ function Register()
     red:hset(uKey, 'urlclicks',0)
     red:hset(uKey, 'devices', 0)
     red:hset(uKey, 'invites', 0)
+    if args['inviteby'] then red:hset(uKey, 'inviteby', args['inviteby'])
+    end 
     ok, err = red:commit_pipeline()
     if ok then 
         local token = ngx.md5(args['name']..rags['pwd'])
@@ -193,8 +195,8 @@ if DBConn() then --db
 end 
 
 if ngx.var.uri == "/user/info" then UserInfo() --get user info 
-elseif ngx.var.uri == "/user/info" then Login() --login
-elseif ngx.var.uri == "/user/reg" then Register() --register
+elseif ngx.var.uri == "/user/login" then Login() --login
+elseif ngx.var.uri == "/user/register" then Register() --register
 else Say("err,非法请求地址")
 end 
 
