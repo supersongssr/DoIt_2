@@ -1,5 +1,5 @@
 {{- define "title" }}
-{{- T "pageNotFound" | printf "404 %v" }} - {{ .Site.Title -}}
+{{- T "info" | printf "%v" }} - {{ .Site.Title -}}
 {{- end -}}
 
 {{- define "content" -}}
@@ -12,7 +12,7 @@
 </div>
 <script type="text/javascript">
     (function () {
-        var info = window.location.hash;
+        var info = decodeURI(window.location.hash);
         window.alert(info);
         document.getElementById('error-emoji').appendChild(document.createTextNode(info));
     })();

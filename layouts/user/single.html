@@ -33,18 +33,19 @@
     xhr.send();
     xhr.onreadystatechange = function (){
         if (xhr.readyState == 4 && xhr.status == 200 ){
-            var r = xhr.responseText;
-            alert(r)
-            r = r.split(',');
-            if (r[0] == 'ok'){
-                document.querySelector("#invitelink").innerHTML=r[1];
-                document.querySelector("#name").innerHTML=r[2];
-                document.querySelector("#email").innerHTML=r[3];
-                document.querySelector("#coins").innerHTML=r[4];
-                document.querySelector("#urlclicks").innerHTML=r[5];
-                document.querySelector("#devices").innerHTML=r[6];
-                document.querySelector("#invites").innerHTML=r[7];
-            }else{
+            var r = new URLSearchParams(xhr.responseText)
+            if (r.get('status') == 'ok'){
+                document.querySelector("#invitelink").innerHTML=r.get('id');
+                document.querySelector("#name").innerHTML=r.get('name');
+                document.querySelector("#email").innerHTML=r.get('email');
+                document.querySelector("#coins").innerHTML=r.get('coins');
+                document.querySelector("#urlclicks").innerHTML=r.get('urlclicks');
+                document.querySelector("#devices").innerHTML=r.get('devices');
+                document.querySelector("#invites").innerHTML=r.get('invites');
+            }else if (r.get('status') == 'err'){
+                window.alert(r.get('err'));
+                window.location.href = '/in';
+            }else {
                 window.alert(xhr.responseText);
                 window.location.href = '/in';
             }

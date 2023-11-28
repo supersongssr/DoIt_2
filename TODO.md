@@ -154,6 +154,9 @@ https://www.fusejs.io/examples.html#search-string-array
     - /admin
         - /urls  post token=xxx&urls={}   urls:{} obj
 
+- [x] 约定的数据传输方式
+    - url args 
+    - name=xxx&id=xx&gaa=xx&email=xx ...
 
 - [x] lua files :
     - user.lua
@@ -210,25 +213,28 @@ https://www.fusejs.io/examples.html#search-string-array
 - [x] why I remake a getit theme ?
     - [x] Need make the steps , how I make it possible 
 
-- [] the invite code set on index page ? 
+- [x] the invite code set on index page ? 
 
-- [] hugo theme doit theme , edit
-	- [] get github hugo getit 
+- [x] hugo theme doit theme , edit
+	- [x] get github hugo getit 
 
-- [] value of redis can not be null !
+- [x] value of redis can not be null !
 
-- [] make a copy to raspiberry pi , try use the live mode 
+- [x] make a copy to raspiberry pi , try use the live mode 
 
-- [] home page UI adaptive size 
-    - [] refer to  love it theme 
+- [x] home page UI adaptive size 
+    - [x] refer to  love it theme 
 
 
-- [] fuse.js use [] list to search 
-    - [] the search , only  title . is OK  save the json file size .
+- [x] fuse.js use list to search 
+    - [x] the search , only  title . is OK  save the json file size .
 
-- [] lua login and user page :
-    - [] login : use &user&pwd=
-    - [] user: user json 
+- [x] the urldecode  infopage 
+
+- [] use artalk as backend .
+    - [] install artalk 
+
+- [] python script 
 
 - [] in future , consider meilisearch !
     - [] the fast and powerful search ! 
@@ -238,18 +244,6 @@ https://www.fusejs.io/examples.html#search-string-array
 
 - [] redis 实现查询: 
     - 插件 redisearch 
-
-- [] 评论程序,用 golang作为后端的 artalk
-
-- [] /login /user页面设计
-    - XMLHttpRequest 可以实现 get post请求
-    - [] 默认/user页面
-    - [] /user页面用 string or json, 获取 ok,username,i,i,i 
-        - [] 判断不是ok, 就跳转到登录页面
-    - [] /login 页面 显示购买 和 购买账号按钮
-        - [] login 用 get到方式传递账号密码即可. 
-        - [] 第一次登录用 User文件逐行对比. 
-            - [] 登录成功后,写入 内存字典
 
 - [] 开源搜索引擎:  meilisearch  zincsearch redisearch
 

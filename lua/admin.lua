@@ -2,75 +2,47 @@
 -- Date: 2023-11-23
 -- admin add urls
 
-REDIS = require "resty.redis"   
-MEM = ngx.shared.limit  --lua shared dict 
-PRE = 'g_'  -- all db save need prefix 
-SITE = 'http://'..'getit.mac.cc'
-ADMIN_TOKEN = 'admintesttoken'
-REDIS_AUTH = 'ngxluaredis'
+local Util = require('g_util')
 
--- ngx say and exit 
-function Say(message)
-    ngx.say(message)
-    if red then red:set_keepalive(10000, 10)  -- red
-    end 
-    ngx.exit(200)
-end 
+local PRE = 'g_'  -- all db save need prefix 
+local ADMIN_TOKEN = 'admintesttoken'
+local Say = Util.NgxSay 
 
--- db connect to redis 
-function DBConn()
-    red = REDIS:new() -- redis start 
-    red:set_timeouts(1000,1000,1000) -- 1sec
-
-    ok ,err = red:connect("127.0.0.1", 6379)
-    if not ok then Say('err,faild connetct to db :', err)
-    end 
-
-    ok, err = red:auth(REDIS_AUTH)
-    if not ok then Say('err,faild login to db :',err)
-    end 
-
-    return true 
-end 
+local Red, err = Util.RedisConn('127.0.0.1',6379, nil) 
+if err then Say(err) end 
 
 -- check admin token 
 function CheckToken()
-    local args = ngx.req.get_post_args
-    if args['token'] != ADMIN_TOKEN then 
-        Say('err,token wrong ')
-    end 
-    if not args['urls'] then 
-        Say('err,urls missing ')
+    if ngx.time > tonumber(ngx.var.cookie_time) - 10  and ngx.time < tonumber(ngx.var.cookie_time) + 10 then 
+        if ngx.var.cookie_token == ngx.md5(ADMIN_TOKEN..ngx.var.cookie_time) then 
+        else 
+            Say('status=err&err=token wrong ')
+        end 
+    else 
+        Say('status=err&err=timestamp error')
     end 
 end 
 
 -- set url by api 
 function HSetUrls()
-    local args = ngx.req.get_post_args
-    local uKey = PRE..'urls'
-    red:init_pipeline() 
-    for k , v in pairs(args['urls']) do 
-        red:hset(uKey, k ,v )
+    ngx.req.read_body()
+    local post_args = ngx.req.get_post_args()
+    Red:init_pipeline() 
+    for k,v in pairs(post_args) do 
+        Red:hset(PRE..'urls', k ,v )
     end 
-    ok, err = red:commit_pipeline()
-    if ok then 
-        Say('ok,sucess')
+    local ok, err = Red:commit_pipeline()
+    if err then 
+        Say('status=err&err=erris:'..err)
     else 
-        Say('err,erris:'..err)
+        Say('status=ok&ok=sucess')
     end 
 end 
 
---- logic 
+--- logic ---
 
-if ngx.var.uri != "/admin/url" then Say('err,uri illegal ')
+if ngx.var.uri ~= "/admin/url" then Say('status=err&err=uri illegal ')
 end 
 
-CheckToken()
-
-DBConn()
-
-HSetUrls()
--- 链接 db
--- 验证密钥, 是否是关键的key , post获取
--- 逐个更新吗? 还是多个一起更新? 我觉得可以多个一起更新.
-
+CheckToken() --Token
+HSetUrls()  --HSet 
