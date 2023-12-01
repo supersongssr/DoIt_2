@@ -30,6 +30,12 @@ bundle = false
 # [Experimental] cache remote images, more info: https://github.com/HEIGE-PCloud/DoIt/pull/860#issue-1574342372
 # [试验性功能] 缓存图床图片，详情请见：https://github.com/HEIGE-PCloud/DoIt/pull/860#issue-1574342372
 cacheRemoteImages = false
+# site description
+# 网站描述
+description = "Hugo DoIt 主题官方文档"
+# site keywords
+# 网站关键词
+keywords = ["Theme", "Hugo"]
 # Header config
 # 页面头部导航栏配置
 [header]
@@ -50,16 +56,16 @@ cacheRemoteImages = false
     logo = ""
     # title name
     # 标题名称
-    name = "DoIt"
+    name = "游戏仓库"
     # you can add extra information before the name (HTML format is supported), such as icons
     # 你可以在名称 (允许 HTML 格式) 之前添加其他信息, 例如图标
-    pre = "<i class='far fa-edit fa-fw'></i>"
+    pre = "<i class='fas fa-fw fa-fan fa-spin'></i>"
     # you can add extra information after the name (HTML format is supported), such as icons
     # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
     post = ""
     # whether to use typeit animation for title name
     # 是否为标题显示打字机动画
-    typeit = true
+    typeit = false
 
 # Footer config
 # 页面底部信息配置
@@ -606,12 +612,7 @@ cacheRemoteImages = false
   objectFit = false
 
 
-# site description
-# 网站描述
-description = "Hugo DoIt 主题官方文档"
-# site keywords
-# 网站关键词
-keywords = ["Theme", "Hugo"]
+
 # App icon config
 # 应用图标配置
 [app]
@@ -685,7 +686,7 @@ keywords = ["Theme", "Hugo"]
     gravatarEmail = ""
     # URL of avatar shown in home page
     # 主页显示头像的 URL
-    avatarURL = "/images/avatar.webp"
+    avatarURL = "/images/avatar.png"
     # title shown in home page (HTML format is supported)
     # 主页显示的网站标题 (支持 HTML 格式)
     title = ""
@@ -697,7 +698,7 @@ keywords = ["Theme", "Hugo"]
     typeit = true
     # whether to show social links
     # 是否显示社交账号
-    social = true
+    social = false
     # disclaimer (HTML format is supported)
     # 免责声明 (支持 HTML 格式)
     disclaimer = ""
@@ -785,10 +786,4 @@ keywords = ["Theme", "Hugo"]
   [social.Diaspora]
     id = "@xxxx"
     prefix = "https://yyyy/"
-# # Sponsor config
-# # 赞助设置
-# [sponsor]
-#   enable = false
-#   bio = "如果你觉得这篇文章对你有所帮助，欢迎赞赏~"
-#   link = "https://github.com/sponsors/HEIGE-PCloud"
-#   # custom = "<a href=\"https://www.buymeacoffee.com/PCloud\" target=\"_blank\"><img src=\"https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png\" alt=\"Buy Me A Coffee\" style=\"height: 40px !important;width: 145 !important;\" ></a>"
+

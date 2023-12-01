@@ -13,6 +13,12 @@ ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 
+#content 
+content/posts/
+public/
+
+resources/_gen/
+
 # OSX
 .DS_Store
 

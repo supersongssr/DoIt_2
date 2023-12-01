@@ -1,4 +1,4 @@
 ---
-title : 提醒
+title: 提醒
 type: info
 ---
