@@ -231,6 +231,14 @@ https://www.fusejs.io/examples.html#search-string-array
 
 - [x] the urldecode  infopage 
 
+- [x] fuck safari : 防止跨站跟踪!  
+    - the same top domain , safari ok!
+    - 如果需要在safari浏览器中使用, site 和 jump的domain,必须是同一个二级域名. 不然的话,会导致跨站的问题
+
+- [] edit the user page 
+
+- [] login page ,add a invite code input button
+
 - [] use artalk as backend .
     - [] install artalk 
 

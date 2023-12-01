@@ -7,7 +7,7 @@ local Util = require('g_util')
 local PRE = 'g_'  -- all db save need prefix 
 local ADMIN_TOKEN = 'admintesttoken'
 local Say = Util.NgxSay 
-
+local ok --, err 
 local Red, err = Util.RedisConn('127.0.0.1',6379, nil) 
 if err then Say(err) end 
 

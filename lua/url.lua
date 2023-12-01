@@ -13,7 +13,7 @@ local LOGIN_URL = SITE..'/in'
 local Say = Util.NgxSay
 local Redirect = Util.NgxRedirect
 local GetUser = Util.RedisHgetToTable
-
+local ok -- ,err 
 local Red, err = Util.RedisConn('127.0.0.1',6379,nil)
 if err then Say(err) end 
 
@@ -95,7 +95,7 @@ end
 
 -- url redirect and add user urlclicks 
 local clicksNewCount = user['urlclicks'] + 1
-local ok,err = Red:hset(PRE..'user_'..email, 'urlclicks', clicksNewCount)
+local _,err = Red:hset(PRE..'user_'..email, 'urlclicks', clicksNewCount)
 if err then Redirect(INFO_URL..err)
 else 
     Redirect(url , 301) -- jump to real url 

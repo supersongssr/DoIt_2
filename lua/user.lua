@@ -9,6 +9,7 @@ local PRE = 'g_'  -- all db save need prefix
 -- local SITE = 'http://'..'getit.mac.cc'
 local Say = Util.NgxSay
 local GetUser = Util.RedisHgetToTable
+local ok -- , err 
 -- local UserItems = {'id','name','email','pwd','coins','urlclicks','devices','invites','inviteby','ip','ipv6'}
 
 local Red, err  = Util.RedisConn('127.0.0.1', 6379 , nil) --db : ip , port , password
@@ -118,10 +119,6 @@ local function Register()
     end 
     ok, err = Red:commit_pipeline()
     if ok then 
-        local token = ngx.md5(args['name']..args['pwd'])
-        MEM:set(PRE..'token_'..token,args['email'])  -- shared dict 
-        local cookieExpires = ngx.time() + 86400000
-        ngx.header['Set-Cookie'] = 'token='..token..';path=/;Max-Age=8640000'..';Expires='..ngx.cookie_time(cookieExpires)
         ngx.print('status=ok&ok=注册成功_')
     else 
         Say('status=err&err=注册失败请联系管理员')

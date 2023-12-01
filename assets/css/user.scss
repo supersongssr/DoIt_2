@@ -168,44 +168,21 @@
   }
 
   .skill {
-    font-size: $code-font-size;
     min-height: 13rem;
     max-height: 13rem;
     overflow-x: auto;
 
     .box{
-      // box-sizing: border-box;
       width: 100%;
       margin: 10px 0;
     }
 
-    .box p{
-      margin: 0 0 10px;
-      padding: 0;
-      font-weight: bold;
-      letter-spacing: 1px;
+    .box input{
+      width: 90%;
+      margin: 5px 0;
+      text-align: center;
     }
 
-    .box p:nth-child(2){
-      float: right;
-      position: relative;
-      top: -33px;
-    }
-
-    .bar{
-      background-color: #282828 ;
-      padding: 2px;
-      // box-sizing: border-box;
-    }
-
-    .level{
-      background-color: #00a01da1;
-      width: 100%;
-      height: 4px;
-      [theme=dark] & {
-        background-color: #003d2d8a;
-      }
-    }
   }
 }
 
