@@ -1,0 +1,14 @@
+{{- if .Site.Params.search -}}
+    {{- $index := slice -}}
+    {{- $pages := .Site.RegularPages -}}
+    {{- if .Site.Params.page.hiddenFromSearch -}}
+        {{- $pages = where $pages "Params.hiddenfromsearch" false -}}
+    {{- else -}}
+        {{- $pages = where $pages "Params.hiddenfromsearch" "!=" true -}}
+    {{- end -}}
+    {{- range $pages -}}
+        {{- $meta := .Slug -}}
+        {{- $index = $index | append $meta -}}
+    {{- end -}}
+    {{- $index | jsonify | safeJS -}}
+{{- end -}}
