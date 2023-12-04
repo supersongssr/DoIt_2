@@ -189,12 +189,12 @@ function initSearch () {
     window._searchMobileOnce = true
     // Turn on the mask when clicking on the search button
     searchInput.addEventListener('focus', () => {
-      loadScript('autocomplete-script', '/lib/autocomplete/autocomplete.min.js',() => {
+      loadScript('autocomplete-script', '/lib/autocomplete/autocomplete.min.js', () => {
         initAutosearch();
         searchInput.focus();
       })
       if (window.config?.search?.type === 'algolia') {
-        loadScript('algolia-script', '/lib/algoliasearch/algoliasearch-lite.umd.min.js',null)
+        loadScript('algolia-script', '/lib/algoliasearch/algoliasearch-lite.umd.min.js', null)
       } else {
         loadScript('fuse-script', '/lib/fuse/fuse.min.js', null)
       }
@@ -274,7 +274,7 @@ function initSearch () {
       hint: false,
       autoselect: true,
       dropdownMenuContainer: `#search-dropdown-${suffix}`,
-      clearOnSelected: true,
+      clearOnSelected: false,
       cssClasses: { noPrefix: true },
       debug: true
     }, {
@@ -371,7 +371,7 @@ function initSearch () {
         }
       },
       templates: {
-        suggestion: ({ title, date, context }) => `<div><span class="suggestion-title">${title}</span><span class="suggestion-date">${date}</span></div><div class="suggestion-context">${(context)}</div>`,
+        suggestion: ({ title, uri, date, context }) => `<div><a href=${uri}><span class="suggestion-title">${title}</span></a><span class="suggestion-date">${date}</span></div><div class="suggestion-context">${(context)}</div>`,
         empty: ({ query }) => `<div class="search-empty">${searchConfig.noResultsFound}: <span class="search-query">"${escape(query)}"</span></div>`,
         footer: () => {
           const { searchType, icon, href } = searchConfig.type === 'algolia'
@@ -389,8 +389,8 @@ function initSearch () {
         }
       }
     })
-    autosearch.on('autocomplete:selected', (_event, suggestion, _dataset, _context) => {
-      window.location.assign(suggestion.uri)
+    autosearch.on('autocomplete:selected', (event, _suggestion, _dataset, _context) => {
+      event.preventDefault();
     })
     if (isMobile) window._searchMobile = autosearch
     else window._searchDesktop = autosearch
@@ -771,7 +771,6 @@ function init () {
   window.oldScrollTop = window.newScrollTop
   window.scrollEventSet = new Set()
   window.resizeEventSet = new Set()
-  window.switchThemeEventSet = new Set()
   window.clickMaskEventSet = new Set()
   if (window.objectFitImages) objectFitImages()
   initSVGIcon()

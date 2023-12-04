@@ -47,6 +47,10 @@
 {{- partial "plugin/style.html" $style -}}
 {{- end -}}
 
+{{/*  tailwind.css  */}}
+{{ $style := dict "Source" "css/main.css" "Fingerprint" $fingerprint }}
+{{- partial "plugin/style.html" $style -}}
+
 {{- /* normalize.css */ -}}
 {{- $source := $cdn.normalizeCSS | default "lib/normalize/normalize.min.css" -}}
 {{- $style := dict "Source" $source "Fingerprint" $fingerprint -}}
