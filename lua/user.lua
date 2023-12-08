@@ -44,11 +44,11 @@ end
 -- invite and pay 
 local function Invite() 
     ngx.req.read_body()
-    local args = ngx.req.get_posts_args 
+    local args = ngx.req.get_post_args()
     if not args then 
         return nil ,'args not exist'
     end 
-    local email ,err = Red:sget(PRE..'invite_codes_index',args['inviteby'] )
+    local email ,err = Red:hget(PRE..'invite_codes_index',args['inviteby'] )
     if ngx.null ~= email and nil ~= email  then
         local userItems = {'id','name','email','pwd','coins','urlclicks','devices','invites','inviteby','ip','ipv6'}
         local user,err  = GetUser(Red, PRE..'user_'..email, userItems) --get invietby user 
@@ -56,7 +56,7 @@ local function Invite()
         if user['email'] then 
             local uKey = PRE..'user_'..email  -- add coins
             Red:init_pipeline()
-            local newCoins = user['coins'] + 500
+            local newCoins = user['coins'] + 100
             local newInvites = user['invites'] +1 
             Red:hset(uKey,'coins', newCoins)
             Red:hset(uKey,'invites',newInvites)
@@ -103,7 +103,7 @@ local function Register()
     local uKey = PRE..'user_'..args['email']
     Red:incr(PRE..'all_users_count')
     local userID = Red:get(PRE..'all_users_count')
-    if userId == ngx.null then 
+    if userID == ngx.null then 
         Say('status=err&err=无法获取用户id') 
     end 
     Red:init_pipeline()  -- start reg 
@@ -111,7 +111,7 @@ local function Register()
     Red:hset(uKey, 'name', args['name'])
     Red:hset(uKey, 'email', args['email'])
     Red:hset(uKey, 'pwd', args['pwd'])
-    Red:hset(uKey, 'coins', 100)
+    Red:hset(uKey, 'coins', 10)
     Red:hset(uKey, 'urlclicks',0)
     Red:hset(uKey, 'devices', 0)
     Red:hset(uKey, 'invites', 0)
@@ -124,12 +124,12 @@ local function Register()
         Say('status=err&err=注册失败请联系管理员')
     end 
 
+    MEM:set(PRE..'reg_ip_'..ip,1,604800)  --7days iplimit
+
     ok, err = Red:sadd(PRE..'users_index', args['email'])  -- pre_users_index
     if err then ngx.print('_写入用户index失败_'..err) end 
     ok, err = Red:hset(PRE..'invite_codes_index', userID, args['email']) --pre_invite_codes_index
     if err then ngx.print('_写入邀请index失败_'..err) end 
-
-    MEM:set(PRE..'reg_ip_'..ip,1,604800)  --7days iplimit
 
     if args['inviteby'] then Invite() -- invite
     end 
