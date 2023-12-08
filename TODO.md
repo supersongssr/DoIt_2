@@ -235,6 +235,13 @@ https://www.fusejs.io/examples.html#search-string-array
     - the same top domain , safari ok!
     - 如果需要在safari浏览器中使用, site 和 jump的domain,必须是同一个二级域名. 不然的话,会导致跨站的问题
 
+- [x] fuse.mini:
+    - posts: 4944 
+    - index.json: 161kb
+    - idnex.json gzip : 93.06kb
+    - COOL!
+
+
 - [] edit the user page 
 
 - [] login page ,add a invite code input button

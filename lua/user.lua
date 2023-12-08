@@ -2,7 +2,7 @@
 -- Date: 2023-11-23
 -- user login & register 
 
-local Util = require('g_util')
+local Util = require('resty.util')
 
 local MEM = ngx.shared.limit  --lua shared dict 
 local PRE = 'g_'  -- all db save need prefix 

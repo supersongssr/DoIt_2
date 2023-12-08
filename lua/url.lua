@@ -2,12 +2,12 @@
 -- Date: 2023-11-23
 -- url redirect
 
-local Util = require('g_util')
+local Util = require('resty.util')
 
 -- Config
 local MEM = ngx.shared.limit  --lua shared dict 
 local PRE = 'g_'  -- all db save need prefix 
-local SITE = 'http://'..'getit.mac.cc'
+local SITE = 'https://'..'game.okxz.top'
 local INFO_URL = SITE..'/info#'
 local LOGIN_URL = SITE..'/in'
 local Say = Util.NgxSay
@@ -57,8 +57,8 @@ IsTokenExist()  -- is token?
 IsRateLimit() -- click rates limit 
 
 -- is url exist?
-local url = Red:hget(PRE..'urls',ngx.var.arg_id)
-if not url then Redirect(INFO_URL..'下载链接不存在') end 
+local url,err = Red:hget(PRE..'urls',ngx.var.arg_id)
+if nil == url or ngx.null == url then ngx.redirect(INFO_URL..'下载链接不存在') end 
 
 -- is user exist?
 local email = MEM:get(PRE..'token_'..ngx.var.cookie_token)

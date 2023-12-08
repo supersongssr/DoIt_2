@@ -6,7 +6,7 @@ REDIS = require "resty.redis"
 REDIS_AUTH = 'ngxluaredis'
 MEM = ngx.shared.limit  --lua shared dict 
 PRE = 'g_'  -- all db save need prefix 
-SITE = 'http://'..'getit.mac.cc'
+SITE = 'http://'..'game.okxz.top'
 
 -- test redis 
 
@@ -26,7 +26,6 @@ function DBConn()
 
     return true 
 end 
-
 
 -- ngx say and exit 
 function Say(message)
