@@ -241,7 +241,21 @@ https://www.fusejs.io/examples.html#search-string-array
     - idnex.json gzip : 93.06kb
     - COOL!
 
-
+- [] js check http or https ? auto https 
+    - [] 
+    var protocolStr = document.location.protocol;
+    if(protocolStr == "http:")
+    {
+    console.log("protocol = " + protocolStr);
+    }
+    else if(protocolStr == "https:")
+    {
+    console.log("protocol = " + protocolStr);
+    }
+    else
+    {
+    console.log("other protocol");
+    }
 - [] edit the user page 
 
 - [] login page ,add a invite code input button
