@@ -26,3 +26,6 @@ enableEmoji = true
 # ignore some build errors
 # 忽略一些构建错误
 # ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
+
+# 禁用 file 大写转小写
+disablePathToLower = true

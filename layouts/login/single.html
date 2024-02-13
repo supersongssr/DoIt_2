@@ -31,15 +31,15 @@
 <div class="panels-container">
     <div class="panel left-panel">
         <div class="content">
-            <h3>New here ?</h3>
-            <p>Lorem ipsum,dolor sit amet consectetur adipisicing elit. Debitis,ex ratione. Aliquid!</p>
+            <h3>新来的 ?</h3>
+            <p>恭喜你发现一个宝藏站点,下载游戏 干净 清爽 简单!</p>
             <button class="btn transparent" id="sign-up-btn">注册 </button>
         </div>
     </div>
     <div class="panel right-panel">
         <div class="content">
-            <h3>One of us ?</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum laboriosam ad deleniti. </p>
+            <h3>已加入我们 ?</h3>
+            <p>前往登录, 获取非凡的下载体验. </p>
             <button class="btn transparent" id="sign-in-btn">Sign in </button>
         </div>
     </div>
@@ -77,6 +77,9 @@
             if (xhr.readyState == 4 && xhr.status == 200 ){
                 var r = new URLSearchParams(xhr.responseText);
                 if (r.get('status') == 'ok'){
+                    if(r.get('email')){
+                        localStorage.setItem("email",r.get('email'));
+                    }
                     window.location.href = '/user';
                 }else if (r.get('status') == 'err'){
                     window.alert(r.get('err'));

@@ -1,6 +1,6 @@
 # website title
 # 网站标题
-title = "Hugo DoIt Theme Documentation"
+title = "OK下载 游戏仓库"
 # DoIt theme version
 # DoIt 主题版本
 version = "0.3.X"
@@ -9,7 +9,7 @@ version = "0.3.X"
 defaultTheme = "auto"
 # public git repo url only then enableGitInfo is true
 # 公共 git 仓库路径，仅在 enableGitInfo 设为 true 时有效
-gitRepo = "https://github.com/HEIGE-PCloud/DoIt"
+gitRepo = ""
 # which hash function used for SRI, when empty, no SRI is used ("sha256", "sha384", "sha512", "md5")
 # 哪种哈希函数用来 SRI, 为空时表示不使用 SRI ("sha256", "sha384", "sha512", "md5")
 fingerprint = ""
@@ -32,10 +32,10 @@ bundle = false
 cacheRemoteImages = false
 # site description
 # 网站描述
-description = "Hugo DoIt 主题官方文档"
+description = "游戏下载中心,steam游戏交流中心"
 # site keywords
 # 网站关键词
-keywords = ["Theme", "Hugo"]
+keywords = ["游戏下载", "网盘下载"]
 # Header config
 # 页面头部导航栏配置
 [header]
@@ -692,7 +692,7 @@ keywords = ["Theme", "Hugo"]
     title = ""
     # subtitle shown in home page
     # 主页显示的网站副标题
-    subtitle = "下载游戏、优雅永不过时"
+    subtitle = "玩游戏就来OK下载"
     # whether to use typeit animation for subtitle
     # 是否为副标题显示打字机动画
     typeit = true
@@ -787,3 +787,5 @@ keywords = ["Theme", "Hugo"]
     id = "@xxxx"
     prefix = "https://yyyy/"
 
+[ https]
+  force = true # js 强制跳转 https访问, 避免oss中使用 http访问也行的问题

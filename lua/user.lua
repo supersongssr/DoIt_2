@@ -32,7 +32,7 @@ local function Login()
             MEM:set(PRE..'token_'..token, user['email'])  -- shared dict 
             local cookieExpires = ngx.time() + 86400000
             ngx.header['Set-Cookie'] = 'token='..token..';path=/;Max-Age=8640000'..';Expires='..ngx.cookie_time(cookieExpires)
-            Say('status=ok&ok=loginsuccess')
+            Say('status=ok&ok=loginsuccess&email='..user['email']..'&name='..user['name'])
         else 
             Say('status=err&err=密码错误')
         end 
