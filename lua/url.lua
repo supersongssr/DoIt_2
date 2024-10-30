@@ -7,9 +7,9 @@ local Util = require('resty.util')
 -- Config
 local MEM = ngx.shared.limit  --lua shared dict 
 local PRE = 'g_'  -- all db save need prefix 
-local SITE = 'https://'..'game.okxz.top'
-local INFO_URL = SITE..'/info#'
-local LOGIN_URL = SITE..'/in'
+-- local SITE = ngx.var.http_origin  --'https://'..'game.okxz.top'
+local INFO_URL = ngx.var.http_origin..'/info#'
+local LOGIN_URL = ngx.var.http_origin..'/in'
 local Say = Util.NgxSay
 local Redirect = Util.NgxRedirect
 local GetUser = Util.RedisHgetToTable

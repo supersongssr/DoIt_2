@@ -57,15 +57,17 @@
       container.classList.remove("sign-up-mode");
     }); 
 
-    // ajax
-    var site = 'https://gameapi.okxz.top';
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    
 
     // invite 
     if (window.location.search) {
         localStorage.setItem("inviteby",window.location.search.slice(1));
     }
+
+    // ajax
+    var site = 'https://gameapi.okxz.top';
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
 
     // login 
     function login(){

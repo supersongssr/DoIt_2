@@ -276,3 +276,5 @@ https://www.fusejs.io/examples.html#search-string-array
 
 - [] 开源搜索引擎:  meilisearch  zincsearch redisearch
 
+
+- [] api 变为:  go.lua , vip.lua, admin.lua , 
