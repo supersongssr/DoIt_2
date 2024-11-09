@@ -1,5 +1,7 @@
 # DoIt Theme | Hugo
 
+PayIt: 支付下载; hugo - openresty 
+
 English README | [简体中文说明](https://github.com/HEIGE-PCloud/DoIt/blob/main/README.zh-cn.md)
 
 > **DoIt** is a **clean**, **elegant** and **advanced** blog theme for [Hugo](https://gohugo.io/).
