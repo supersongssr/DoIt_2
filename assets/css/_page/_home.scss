@@ -159,3 +159,30 @@
     }
   }
 }
+
+.home[posts] .summary-card {
+  margin: 0 auto;
+  display: flex;
+  list-style: none;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+}
+
+.home[posts] .summary {
+  @include border-radius(.5rem); //弧
+  width: 460px; // 460px * 210px
+
+  .featured-image-preview {
+    padding: 47% 0 0;  // 460 * 215px
+    img {
+      border-radius: .5rem .5rem 0 0; 
+    }
+  }
+
+  .single-title {
+    font-size: 0.75rem;  //细一些
+  }
+}

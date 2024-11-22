@@ -22,7 +22,7 @@
     </h1>
 
     {{- /* Meta */ -}}
-    <div class="post-meta">
+    {{/*  <div class="post-meta">
         <span class="post-author">
             {{- partial "meta/author" . }}
         </span>
@@ -68,19 +68,19 @@
             {{- dict "Series" . | T "includedInSeries" | safeHTML -}}
         </span>
     {{- end -}}
-    </div>
+    </div>  */}}
 
     {{- /* Summary content */ -}}
-    <div class="content">
+    {{/*  <div class="content">
         {{- with .Summary -}}
             {{- dict "Content" . "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
         {{- else -}}
             {{- .Description | safeHTML -}}
         {{- end -}}
-    </div>
+    </div>  */}}
 
     {{- /* Footer */ -}}
-    <div class="post-footer">
+    {{/*  <div class="post-footer">
         <a href="{{ .RelPermalink }}">{{ T "readMore" }}</a>
         {{- with .Params.tags -}}
             <div class="post-tags">
@@ -92,5 +92,5 @@
                 {{- end -}}
             </div>
         {{- end -}}
-    </div>
+    </div>  */}}
 </article>
