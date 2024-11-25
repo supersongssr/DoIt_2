@@ -62,6 +62,9 @@ keywords = ["Theme", "Hugo"]
     ignoreLocation = true
     useExtendedSearch = false
     ignoreFieldNorm = false
+    # 是简单的 string array 搜索吗?
+    isSearchStringArray = true
+    searchArrayUrlSection = 'posts' # default is posts
   [search.pagefind]
     # https://pagefind.app/docs/search-config/#available-options
     # run `npx pagefind --site $YOUR_PUBLIC_DIR` after site build to create pagefind index
