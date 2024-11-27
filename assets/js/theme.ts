@@ -181,12 +181,6 @@ function initSearch() {
   const ignoreFieldNorm = searchConfig.ignoreFieldNorm
     ? searchConfig.ignoreFieldNorm
     : false;
-  const isSearchStringArray = searchConfig.isSearchStringArray
-    ? searchConfig.isSearchStringArray
-    : false;
-  const searchArrayUrlSection = searchConfig.searchArrayUrlSection
-    ? searchConfig.searchArrayUrlSection
-    :'posts'; // default search section
   const termFrequency = searchConfig.termFrequency
     ? searchConfig.termFrequency
     : 1.0;
@@ -378,10 +372,6 @@ function initSearch() {
                   let title = item.title;
                   let content = item.content;
                   matches.forEach(({ indices, value, key }) => {
-                    if ( isSearchStringArray ){ // stringArray search only title
-                      content = title = item;
-                      key = 'title';
-                    }
                     if (key === "content") {
                       let offset = 0;
                       for (let i = 0; i < indices.length; i++) {
@@ -420,21 +410,12 @@ function initSearch() {
                       }
                     }
                   });
-                  if ( isSearchStringArray ) {
-                    results[item] = {
-                      uri: '/' + searchArrayUrlSection + '/' + encodeURIComponent(item.toLowerCase()), //空格替换-,小写 符合hugo slug规则
-                      title,
-                      date: '',
-                      context: '',
-                    };
-                  } else {
-                    results[item.uri] = {
-                      uri: item.uri,
-                      title,
-                      date: item.date,
-                      context: content,
-                    };
-                  }
+                  results[item.uri] = {
+                    uri: item.uri,
+                    title,
+                    date: item.date,
+                    context: content,
+                  };
                 });
               console.log(results);
               return Object.values(results).slice(0, maxResultLength);
@@ -456,7 +437,7 @@ function initSearch() {
                     includeScore: false,
                     shouldSort: true,
                     includeMatches: true,
-                    keys: isSearchStringArray ? [] : ["content", "title"],
+                    keys: ["content", "title"],
                   };
                   window._fuseIndex = new Fuse(data, options);
                   finish(search());
