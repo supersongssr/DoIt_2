@@ -62,6 +62,11 @@ keywords = ["Theme", "Hugo"]
     ignoreLocation = true
     useExtendedSearch = false
     ignoreFieldNorm = false
+    # ariMode  不索引 content ,content 变成 tags
+    isEnableAirMode = true 
+    # miniMode index.json变成 string array; slug即 url, 搜索slug
+    isEnableMiniMode = true 
+    # miniModeUrlPrefix = '/posts/'  # mini模式下 的 posts section 默认 /posts/, 如果你的文章路径不是 /posts/ 请修改此项
   [search.pagefind]
     # https://pagefind.app/docs/search-config/#available-options
     # run `npx pagefind --site $YOUR_PUBLIC_DIR` after site build to create pagefind index

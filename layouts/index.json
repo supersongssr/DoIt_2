@@ -7,6 +7,15 @@
         {{- $pages = where $pages "Params.hiddenfromsearch" "!=" true -}}
     {{- end -}}
     {{- range $pages -}}
+        {{/* fuse mode */}}
+        {{- if and (eq $.Site.Params.search.type "fuse") $.Site.Params.search.fuse.isEnableMiniMode -}}   
+                {{- $index = $index | append .Slug -}}
+        {{- else if and (eq $.Site.Params.search.type "fuse") $.Site.Params.search.fuse.isEnableAirMode -}}
+            {{- $uri := .RelPermalink -}}
+            {{- $meta := dict  "title" .Title -}}
+            {{- $meta = $.Site.Params.dateFormat | default "2006-01-02" | .PublishDate.Format | dict "date" | merge $meta -}}
+            {{- $index = $index | append (dict "content" .Params.tags "uri" $uri| merge $meta) -}}
+        {{- else -}}
         {{- $uri := .RelPermalink -}}
         {{- if $.Site.Params.search.absoluteURL -}}
             {{- $uri = .Permalink -}}
@@ -67,6 +76,7 @@
                     {{- end -}}
                 {{- end -}}
             {{- end -}}
+        {{- end -}}
         {{- end -}}
     {{- end -}}
 

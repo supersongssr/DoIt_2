@@ -191,6 +191,12 @@ function initSearch() {
   const termSaturation = searchConfig.termSaturation
     ? searchConfig.termSaturation
     : 1.4;
+  const isEnableAirMode = searchConfig.isEnableAirMode
+    ? searchConfig.isEnableAirMode
+    : false;
+  const isEnableMiniMode = searchConfig.isEnableMiniMode
+    ? searchConfig.isEnableMiniMode
+    : false;
   const suffix = isMobile ? "mobile" : "desktop";
   const header = document.getElementById(`header-${suffix}`);
   const searchInput = document.getElementById(`search-input-${suffix}`);
@@ -369,53 +375,63 @@ function initSearch() {
               window._fuseIndex
                 .search(query)
                 .forEach(({ item, refIndex, matches }) => {
-                  let title = item.title;
-                  let content = item.content;
-                  matches.forEach(({ indices, value, key }) => {
-                    if (key === "content") {
-                      let offset = 0;
-                      for (let i = 0; i < indices.length; i++) {
-                        const substr = content.substring(
-                          indices[i][0] + offset,
-                          indices[i][1] + 1 + offset,
-                        );
-                        const tag =
-                          `<${highlightTag}>` + substr + `</${highlightTag}>`;
-                        content =
-                          content.substring(0, indices[i][0] + offset) +
-                          tag +
-                          content.substring(
+                  if ( isEnableMiniMode ){
+                    let title = item;
+                    results[item] = {
+                      uri: '/posts/' + encodeURIComponent(item.toLowerCase().replace(/\s/g, '-')), //空格替换-,小写 符合hugo slug规则
+                      title,
+                      date: "",
+                      context: "",
+                    };
+                  }else {
+                    let title = item.title;
+                    let content = item.content;
+                    matches.forEach(({ indices, value, key }) => {
+                      if (key === "content") {
+                        let offset = 0;
+                        for (let i = 0; i < indices.length; i++) {
+                          const substr = content.substring(
+                            indices[i][0] + offset,
                             indices[i][1] + 1 + offset,
-                            content.length,
                           );
-                        offset += highlightTag.length * 2 + 5;
-                      }
-                    } else if (key === "title") {
-                      let offset = 0;
-                      for (let i = 0; i < indices.length; i++) {
-                        const substr = title.substring(
-                          indices[i][0] + offset,
-                          indices[i][1] + 1 + offset,
-                        );
-                        const tag =
-                          `<${highlightTag}>` + substr + `</${highlightTag}>`;
-                        title =
-                          title.substring(0, indices[i][0] + offset) +
-                          tag +
-                          title.substring(
+                          const tag =
+                            `<${highlightTag}>` + substr + `</${highlightTag}>`;
+                          content =
+                            content.substring(0, indices[i][0] + offset) +
+                            tag +
+                            content.substring(
+                              indices[i][1] + 1 + offset,
+                              content.length,
+                            );
+                          offset += highlightTag.length * 2 + 5;
+                        }
+                      } else if (key === "title") {
+                        let offset = 0;
+                        for (let i = 0; i < indices.length; i++) {
+                          const substr = title.substring(
+                            indices[i][0] + offset,
                             indices[i][1] + 1 + offset,
-                            content.length,
                           );
-                        offset += highlightTag.length * 2 + 5;
+                          const tag =
+                            `<${highlightTag}>` + substr + `</${highlightTag}>`;
+                          title =
+                            title.substring(0, indices[i][0] + offset) +
+                            tag +
+                            title.substring(
+                              indices[i][1] + 1 + offset,
+                              title.length,
+                            );
+                          offset += highlightTag.length * 2 + 5;
+                        }
                       }
-                    }
-                  });
-                  results[item.uri] = {
-                    uri: item.uri,
-                    title,
-                    date: item.date,
-                    context: content,
-                  };
+                    });
+                    results[item.uri] = {
+                      uri: item.uri,
+                      title,
+                      date: item.date,
+                      context: content,
+                    };
+                  }
                 });
               console.log(results);
               return Object.values(results).slice(0, maxResultLength);
@@ -436,8 +452,8 @@ function initSearch() {
                     ignoreFieldNorm,
                     includeScore: false,
                     shouldSort: true,
-                    includeMatches: true,
-                    keys: ["content", "title"],
+                    includeMatches: isEnableMiniMode ? false : true,
+                    keys: isEnableAirMode ? ["title"] : ["content", "title"],
                   };
                   window._fuseIndex = new Fuse(data, options);
                   finish(search());
@@ -489,7 +505,7 @@ function initSearch() {
         },
         templates: {
           suggestion: ({ title, uri, date, context }) =>
-            `<div><a href=${uri}><span class="suggestion-title">${title}</span></a><span class="suggestion-date">${date}</span></div><div class="suggestion-context">${context}</div>`,
+            `<div><a href="${uri}"><span class="suggestion-title">${title}</span></a><span class="suggestion-date">${date}</span></div><div class="suggestion-context">${context}</div>`,
           empty: ({ query }) =>
             `<div class="search-empty">${searchConfig.noResultsFound}: <span class="search-query">"${escape(query)}"</span></div>`,
           footer: () => {
